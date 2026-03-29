@@ -1,0 +1,38 @@
+========================================
+  INSTRUCTIONS : TROUVER ET COPIER STRIPE.EXE
+========================================
+
+ETAPE 1 : TROUVER STRIPE.EXE
+--------------------------------
+1. Ouvrez l'Explorateur de fichiers Windows
+2. Allez dans votre dossier de telechargements :
+   C:\Users\hp\Downloads
+3. Cherchez un fichier ZIP comme :
+   stripe_1.21.9_windows_x86_64.zip
+   (ou un dossier stripe-cli, ou stripe.exe directement)
+
+
+ETAPE 2 : DECOMPRESSER (si c'est un ZIP)
+--------------------------------
+1. Si vous avez un fichier ZIP, cliquez droit → "Extraire tout"
+2. Vous obtiendrez un fichier stripe.exe
+
+
+ETAPE 3 : COPIER DANS VOTRE PROJET
+--------------------------------
+1. Copiez stripe.exe (clic droit → Copier)
+2. Ouvrez ce dossier dans l'Explorateur :
+   C:\Users\hp\Downloads\projet cdlab\cdl_IKNOVA\Nouveau dossier\S4S
+3. Collez stripe.exe ici (clic droit → Coller)
+
+
+ETAPE 4 : VERIFIER
+--------------------------------
+Dans votre terminal, tapez :
+   .\stripe.exe --version
+
+Vous devriez voir la version de Stripe CLI.
+
+
+========================================
+

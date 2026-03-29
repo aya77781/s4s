@@ -1,0 +1,93 @@
+========================================
+  ETAPES POUR UTILISER STRIPE CLI
+========================================
+
+stripe.exe est bien dans le dossier !
+
+
+ETAPE 1 : SE CONNECTER A STRIPE
+--------------------------------
+Dans un terminal, tapez :
+
+    .\stripe.exe login
+
+Une page s'ouvrira dans le navigateur.
+Autorisez l'acces Stripe CLI.
+
+
+ETAPE 2 : DEMARRER LE SERVEUR
+--------------------------------
+Dans un terminal (Terminal 1), tapez :
+
+    npm start
+
+Attendez : "Serveur S4S en cours d'execution sur http://localhost:4100"
+NE FERMEZ PAS ce terminal !
+
+
+ETAPE 3 : LANCER STRIPE CLI
+--------------------------------
+Dans un NOUVEAU terminal (Terminal 2), tapez :
+
+    .\stripe.exe listen --forward-to http://localhost:4100/api/payments/webhook
+
+Vous verrez :
+
+    > Ready! Your webhook signing secret is whsec_xxxxxxxxxxxxx
+
+⚠️ IMPORTANT : Copiez ce secret (whsec_...)
+
+
+ETAPE 4 : METTRE A JOUR .env
+--------------------------------
+Ouvrez le fichier .env et ajoutez/modifiez :
+
+    STRIPE_WEBHOOK_SECRET=whsec_xxxxxxxxxxxxx
+
+(Le secret que vous avez copie a l'etape 3)
+
+
+ETAPE 5 : REDEMARRER LE SERVEUR
+--------------------------------
+Dans le Terminal 1 (serveur) :
+    Ctrl+C  (arreter)
+    npm start  (redemarrer)
+
+
+ETAPE 6 : TESTER
+--------------------------------
+Dans un NOUVEAU terminal (Terminal 3), tapez :
+
+    .\stripe.exe trigger payment_intent.succeeded
+
+Dans le Terminal 1 (serveur), vous devriez voir :
+    ✅ Transaction enregistree: ... amount: X email: Y
+    ✅ Contribution enregistree pour userId X: Y EUR
+
+
+VERIFICATION
+--------------------------------
+Vérifiez les fichiers :
+
+    type backend\data\transactions.json
+    type backend\data\contributions.json
+
+Vous devriez voir vos transactions et contributions !
+
+
+========================================
+  RESUMÉ DES COMMANDES
+========================================
+
+Terminal 1 (Serveur) :
+  npm start
+
+Terminal 2 (Stripe CLI Listen) :
+  .\stripe.exe listen --forward-to http://localhost:4100/api/payments/webhook
+
+Terminal 3 (Tester) :
+  .\stripe.exe trigger payment_intent.succeeded
+
+
+========================================
+

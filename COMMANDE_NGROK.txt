@@ -1,0 +1,61 @@
+========================================
+  COMMANDE EXACTE A TAPER
+========================================
+
+Dans votre terminal ngrok, tapez EXACTEMENT :
+
+    ngrok http 4100
+
+⚠️ IMPORTANT : Utilisez le port 4100 (pas 80) !
+
+
+========================================
+  CE QUE VOUS VERREZ
+========================================
+
+Apres avoir tape la commande, vous verrez quelque chose comme :
+
+Session Status                online
+Account                       votre-email@example.com
+Version                       3.24.0
+Region                        United States (us)
+Latency                       50ms
+Web Interface                 http://127.0.0.1:4040
+Forwarding                    https://abc123.ngrok-free.dev -> http://localhost:4100
+
+Connections                   ttl     opn     rt1     rt5     p50     p90
+                              0       0       0.00    0.00    0.00    0.00
+
+
+========================================
+  VOTRE URL PUBLIQUE
+========================================
+
+La ligne "Forwarding" vous donne votre URL publique :
+
+    https://abc123.ngrok-free.dev
+
+Cette URL est votre URL publique a partager !
+
+
+========================================
+  INTERFACE WEB NGROK
+========================================
+
+Vous pouvez aussi ouvrir dans votre navigateur :
+    http://127.0.0.1:4040
+
+Pour voir toutes les requetes en temps reel !
+
+
+========================================
+  IMPORTANT
+========================================
+
+✓ Gardez ce terminal ouvert
+✓ Le serveur doit aussi tourner (port 4100)
+✓ L'URL change a chaque redemarrage (gratuit)
+
+
+========================================
+

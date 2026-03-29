@@ -1,0 +1,35 @@
+node_modules/
+
+# Environment files (all locations)
+.env
+.env.local
+.env.production
+.env.*
+backend/.env
+public/.env
+
+# Sensitive data files
+backend/data/
+
+# Binaries
+*.exe
+
+# Uploads
+public/uploads/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Documentation with secrets
+GET_NGROK_URL.md
+README_NGROK.md
+STRIPE_CLI_LOCAL.md
+
+# Windows system files
+desktop.ini
+

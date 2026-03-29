@@ -1,0 +1,56 @@
+========================================
+  🚀 COMMENCEZ ICI - PARTAGE RAPIDE
+========================================
+
+Tout est pret ! Voici comment partager votre site :
+
+
+METHODE SIMPLE (RECOMMANDEE)
+--------------------------------
+Double-cliquez sur: DEMARRER_TOUT.bat
+
+Cela va:
+  1. Demarrer le serveur automatiquement
+  2. Lancer ngrok automatiquement
+  3. Vous donner votre URL publique
+
+
+METHODE MANUELLE (2 ETAPES)
+--------------------------------
+ETAPE 1:
+  Double-cliquez sur: START_SERVER.bat
+  Attendez de voir: "Serveur S4S en cours d'execution"
+  NE FERMEZ PAS cette fenetre !
+
+ETAPE 2:
+  Double-cliquez sur: DEMARRER_NGROK.bat
+  Vous verrez votre URL publique HTTPS !
+
+
+VOTRE URL PUBLIQUE
+--------------------------------
+Quand ngrok est lance, vous verrez quelque chose comme:
+
+  https://abc123.ngrok-free.dev
+
+Cette URL est votre URL publique !
+Partagez-la avec n'importe qui !
+
+
+IMPORTANT
+--------------------------------
+✓ Gardez les fenetres ouvertes (serveur + ngrok)
+✓ L'URL change a chaque redemarrage (gratuit)
+✓ Pour URL fixe, upgradez ngrok (~$8/mois)
+
+
+TEST RAPIDE
+--------------------------------
+Double-cliquez sur: TEST_NGROK.bat
+Pour verifier que tout est bien installe
+
+
+========================================
+  PRET ? Double-cliquez sur DEMARRER_TOUT.bat !
+========================================
+

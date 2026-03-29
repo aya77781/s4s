@@ -1,0 +1,57 @@
+========================================
+  GUIDE SIMPLE : PARTAGER VOTRE SITE
+========================================
+
+Vous avez ngrok installe et configure !
+Voici comment partager votre site en 2 etapes simples :
+
+
+ETAPE 1 : DEMARRER LE SERVEUR
+--------------------------------
+Dans un terminal (ou double-cliquez sur START_SERVER.bat) :
+
+    npm start
+
+Attendez de voir :
+    "Serveur S4S en cours d'execution sur http://localhost:4100"
+
+⚠️ NE FERMEZ PAS CE TERMINAL ! Laissez-le ouvert.
+
+
+ETAPE 2 : LANCER NGROK
+--------------------------------
+Dans un NOUVEAU terminal (ou double-cliquez sur DEMARRER_NGROK.bat) :
+
+    ngrok http 4100
+
+Vous verrez quelque chose comme :
+
+    Forwarding    https://abc123.ngrok-free.dev -> http://localhost:4100
+
+✅ COPIEZ CETTE URL HTTPS !
+
+
+PARTAGER VOTRE SITE
+--------------------------------
+L'URL HTTPS que vous avez copiee (ex: https://abc123.ngrok-free.dev)
+est votre URL publique. Partagez-la avec n'importe qui !
+
+
+IMPORTANT
+--------------------------------
+- Gardez les 2 terminaux ouverts
+- Le serveur (Terminal 1) doit tourner
+- ngrok (Terminal 2) doit tourner
+- L'URL change a chaque redemarrage de ngrok (version gratuite)
+
+
+SCRIPT AUTOMATIQUE
+--------------------------------
+Double-cliquez sur DEMARRER_NGROK.bat
+pour lancer ngrok automatiquement !
+
+
+========================================
+Bonne chance ! 🚀
+========================================
+

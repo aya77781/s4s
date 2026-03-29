@@ -1,0 +1,404 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: #fefcf9;
+  color: #0f172a;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+.concept-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* Header */
+.concept-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-top: 2rem;
+}
+
+.logo-large {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #02aeb2;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  font-size: 1.1rem;
+  color: #64748b;
+  font-style: italic;
+}
+
+/* Intro Section */
+.concept-intro {
+  margin-bottom: 3rem;
+}
+
+.intro-card {
+  background: #fff;
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  border: 1px solid #f1f5f9;
+}
+
+.main-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #0f172a;
+  text-align: center;
+}
+
+.concept-text {
+  font-size: 1.1rem;
+  color: #334155;
+  margin-bottom: 1rem;
+  line-height: 1.8;
+}
+
+.concept-text.mission {
+  font-size: 1.15rem;
+  text-align: center;
+  padding: 1.5rem;
+  background: #f8fafc;
+  border-radius: 0.75rem;
+  border-left: 4px solid #02aeb2;
+  margin-top: 1.5rem;
+}
+
+.concept-text.highlight {
+  font-weight: 600;
+  color: #02aeb2;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+.equation-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.symbol-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  min-width: 200px;
+}
+
+.symbol {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #02aeb2;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.symbol-desc {
+  font-size: 1rem;
+  color: #475569;
+  max-width: 300px;
+  line-height: 1.6;
+}
+
+.arrow {
+  font-size: 2rem;
+  color: #02aeb2;
+  font-weight: 300;
+}
+
+/* Platform Description */
+.platform-description {
+  margin-bottom: 3rem;
+}
+
+.description-card {
+  background: #fff;
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  border: 1px solid #f1f5f9;
+}
+
+.description-text {
+  font-size: 1rem;
+  color: #475569;
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+}
+
+.description-text:last-child {
+  margin-bottom: 0;
+}
+
+/* Origin Story */
+.origin-story {
+  margin-bottom: 3rem;
+}
+
+.origin-card {
+  background: #fff;
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  border: 1px solid #f1f5f9;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #0f172a;
+  text-align: center;
+}
+
+.origin-text {
+  font-size: 1rem;
+  color: #475569;
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+.origin-text em {
+  font-style: italic;
+  color: #334155;
+}
+
+.origin-text.highlight {
+  font-weight: 600;
+  color: #02aeb2;
+  text-align: center;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+/* Roles Section */
+.roles-section {
+  margin-bottom: 3rem;
+}
+
+.roles-section .section-title {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.role-card {
+  background: #fff;
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  border: 1px solid #f1f5f9;
+  position: relative;
+  border-left: 4px solid #02aeb2;
+}
+
+.role-number {
+  position: absolute;
+  top: -15px;
+  left: 2rem;
+  width: 50px;
+  height: 50px;
+  background: #0f172a;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border: 4px solid #fefcf9;
+}
+
+.role-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #0f172a;
+  margin-top: 0.5rem;
+}
+
+.role-name {
+  font-weight: 700;
+  font-style: italic;
+  color: #02aeb2;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
+  text-decoration-color: #02aeb2;
+}
+
+.role-text {
+  font-size: 1rem;
+  color: #475569;
+  line-height: 1.8;
+  text-align: left;
+}
+
+.role-text strong {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+/* CTA Section */
+.cta-section {
+  margin-bottom: 3rem;
+}
+
+.cta-card {
+  background: linear-gradient(135deg, #02aeb2 0%, #059199 100%);
+  border-radius: 1.5rem;
+  padding: 3rem 2.5rem;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(2, 174, 178, 0.2);
+}
+
+.cta-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.cta-text {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+  line-height: 1.7;
+}
+
+.cta-button {
+  display: inline-block;
+  background: #fff;
+  color: #02aeb2;
+  padding: 1rem 2.5rem;
+  border-radius: 9999px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.cta-footer {
+  margin-top: 2rem;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.cta-footer a {
+  color: #fff;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.cta-footer a:hover {
+  opacity: 0.8;
+}
+
+/* Footer Signature */
+.concept-footer {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.signature {
+  font-family: 'Brush Script MT', cursive;
+  font-size: 2.5rem;
+  color: #0f172a;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  display: inline-block;
+  position: relative;
+}
+
+.signature::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #0f172a;
+  transform: skewY(-2deg);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .concept-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .logo-large {
+    font-size: 2.5rem;
+  }
+
+  .main-title {
+    font-size: 2rem;
+  }
+
+  .intro-card,
+  .description-card,
+  .origin-card,
+  .role-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .equation-box {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .arrow {
+    transform: rotate(90deg);
+  }
+
+  .symbol {
+    font-size: 3rem;
+  }
+
+  .role-number {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+    top: -12px;
+    left: 1.5rem;
+  }
+
+  .role-title {
+    font-size: 1.5rem;
+  }
+
+  .cta-card {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .cta-title {
+    font-size: 1.8rem;
+  }
+}
+

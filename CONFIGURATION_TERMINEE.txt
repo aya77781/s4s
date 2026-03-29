@@ -1,0 +1,51 @@
+========================================
+  ✅ CONFIGURATION TERMINEE
+========================================
+
+Votre webhook secret Stripe a ete ajoute dans .env !
+
+
+CE QUI A ETE FAIT
+--------------------------------
+✓ Fichier .env cree
+✓ STRIPE_WEBHOOK_SECRET configure
+✓ URL ngrok referencee : https://statued-thermoelectrically-lilith.ngrok-free.dev
+
+
+IMPORTANT - A COMPLETER
+--------------------------------
+Ouvrez le fichier .env et ajoutez :
+
+1. STRIPE_SECRET_KEY=sk_live_votre_cle_stripe
+   → Obtenez-la depuis : https://dashboard.stripe.com/apikeys
+
+2. GMAIL_APP_PASSWORD=votre_mot_de_passe_app
+   → Obtenez-le depuis : https://myaccount.google.com/apppasswords
+   → (Optionnel, seulement si vous voulez envoyer des emails)
+
+
+PROCHAINES ETAPES
+--------------------------------
+1. Completez votre fichier .env avec vos cles Stripe et Gmail
+2. REDEMARREZ le serveur Node.js (Ctrl+C puis npm start)
+3. Testez le webhook dans Stripe Dashboard :
+   → Allez sur votre webhook
+   → Cliquez sur "Send test webhook"
+   → Selectionnez "payment_intent.succeeded"
+   → Vous devriez voir "200 Success" !
+
+
+VOTRE WEBHOOK STRIPE
+--------------------------------
+URL : https://statued-thermoelectrically-lilith.ngrok-free.dev/api/payments/webhook
+Secret : whsec_M9nPasNyfIra1CyzpD4RP1pllSGm0V06 (deja dans .env)
+
+
+RAPPEL
+--------------------------------
+⚠️  Gardez ngrok actif pour que le webhook fonctionne !
+⚠️  Si vous redemarrez ngrok, l'URL change - mettez-la a jour dans Stripe
+
+
+========================================
+

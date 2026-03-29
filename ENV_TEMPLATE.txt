@@ -1,0 +1,21 @@
+# Configuration pour l'environnement de production
+# Copiez ce fichier vers .env et remplissez avec vos vraies valeurs
+
+# Port du serveur (laissez vide pour utiliser le port 4100 par défaut)
+PORT=4100
+
+# URL de votre application (pour CORS et webhooks)
+APP_URL=https://votre-domaine.com
+# Ou pour le développement local :
+# APP_URL=http://localhost:4100
+
+# Origine CORS (optionnel, utilise APP_URL si non défini)
+CORS_ORIGIN=https://votre-domaine.com
+
+# Stripe Configuration (LIVE keys en production)
+STRIPE_SECRET_KEY=sk_live_xxxxxxxxxxxxx
+STRIPE_WEBHOOK_SECRET=whsec_xxxxxxxxxxxxx
+
+# Email Configuration (Gmail App Password)
+GMAIL_APP_PASSWORD=xxxxxxxxxxxxx
+

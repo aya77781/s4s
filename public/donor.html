@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>$forS – Donor Space</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="donor.css" />
+</head>
+<body>
+  <script>
+    // Vérification de session et redirection
+    const session = localStorage.getItem("fors_user");
+    if (!session) window.location.href = "login.html";
+    const sessionUser = JSON.parse(session);
+    if (sessionUser.role !== "Donor") {
+      if (sessionUser.role === "Alumni") window.location.href = "alumni.html";
+      else if (sessionUser.role === "Partner") window.location.href = "partner.html";
+      else if (sessionUser.role === "Student") window.location.href = "student.html";
+      else window.location.href = "login.html";
+    }
+  </script>
+
+  <header class="topbar">
+    <input id="search-input" class="search" type="text" placeholder="Search users, requests, contributions..." />
+    <div class="top-actions">
+      <div class="user-menu" id="user-menu">
+        <div class="avatar" id="user-avatar"></div>
+        <div class="user-info">
+          <div id="user-name"></div>
+          <div class="user-role"></div>
+        </div>
+        <div class="dropdown" id="user-dropdown">
+          <div class="dropdown-title">My Account</div>
+          <button class="dropdown-item">Profile Settings</button>
+          <button class="dropdown-item">Preferences</button>
+          <button class="dropdown-item danger" id="logout-btn">Log out</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <h1 class="page-title">Donor Space</h1>
+    <div class="page-header">
+      <button class="btn btn-donate" id="make-donation-btn" onclick="openStripeModal()" style="text-decoration: none; display: inline-block;">
+        Make a donation
+      </button>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="dashboard">Dashboard</button>
+      <button class="tab" data-tab="make-donation">Make a donation</button>
+      <button class="tab" data-tab="history">History</button>
+      <button class="tab" data-tab="news">News</button>
+    </div>
+
+    <!-- Dashboard Panel -->
+    <section id="dashboard" class="tab-panel active">
+      <div class="cards">
+        <div class="card stat-card">
+          <h3>Total donations</h3>
+          <div class="stat-value stat-value-red" id="total-donations">€0</div>
+          <p class="stat-context">Thank you for your generosity!</p>
+          <button class="btn-outline" onclick="activateTab('history')">View details</button>
+        </div>
+
+        <div class="card stat-card">
+          <h3>Impact of your donations</h3>
+          <div class="stat-value stat-value-red stat-value-icon">
+            <span class="icon-heart"></span>
+            <span id="students-helped-count">0</span>
+          </div>
+          <p class="stat-context">Students helped thanks to you</p>
+          <button class="btn-outline" onclick="activateTab('history')">See impact</button>
+        </div>
+
+        <div class="card stat-card">
+          <h3>Next tax receipt</h3>
+          <div class="stat-value stat-value-icon">
+            <span class="icon-calendar"></span>
+            <span id="next-tax-receipt">January 2026</span>
+          </div>
+          <p class="stat-context">For your tax return</p>
+          <button class="btn-outline" onclick="activateTab('make-donation')">Tax settings</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Make a donation Panel -->
+    <section id="make-donation" class="tab-panel">
+      <div class="contribute-container">
+        <!-- Stripe Payment Elements -->
+        <div class="card payment-card" id="stripe-payment-card" style="display: none;">
+          <h2>Payment Information</h2>
+          <form id="payment-form">
+            <div id="payment-element">
+              <!-- Stripe Elements will create form elements here -->
+            </div>
+            <div id="payment-message" style="margin-top: 1rem; color: #dc2626; display: none;"></div>
+            <button type="submit" id="submit-payment-btn" class="btn btn-green" style="margin-top: 1rem;">
+              Pay Now
+            </button>
+            <button type="button" class="btn-outline" id="cancel-payment-btn" style="margin-top: 0.5rem;">
+              Cancel
+            </button>
+          </form>
+        </div>
+
+        <!-- Stripe Pricing Table -->
+        <div class="card payment-card" style="margin-top: 1.5rem;">
+          <h2>Choose Your Donation Plan</h2>
+          <p style="color: #64748b; margin-bottom: 1.5rem; font-size: 0.9rem;">Select a plan that fits your budget to support students:</p>
+          <stripe-pricing-table 
+            pricing-table-id="prctbl_1SOiKADfbY6lGYcLRu8DVxNh"
+            publishable-key="pk_live_51Qxyc4DfbY6lGYcLPMY6nNnQs6ZhGYjfY5l2ZjdY1Anrg0rsIhRlfSXUooCa7yjRhCE7BO80IpkzaMV5yPchTj1a00brHti2LN">
+          </stripe-pricing-table>
+        </div>
+
+        <!-- Free Amount Donation Link -->
+        <div class="card payment-card" style="margin-top: 1.5rem; text-align: center;">
+          <h2>Or Make a Free Amount Donation</h2>
+          <p style="color: #64748b; margin-bottom: 1.5rem; font-size: 0.9rem;">Choose any amount you'd like to contribute:</p>
+          <button onclick="openStripeModal()" class="btn btn-green" style="display: inline-block; padding: 1rem 2.5rem; text-decoration: none; font-weight: 600;">
+            Make a Free Amount Donation
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- History Panel -->
+    <section id="news" class="tab-panel">
+      <div class="card">
+        <div class="card-header-row">
+          <h2>News & Announcements</h2>
+        </div>
+        <div id="news-list" class="empty-state">
+          <p>Loading news...</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="history" class="tab-panel">
+      <div class="card">
+        <h2>Donation history</h2>
+        <div id="donation-history-list" class="history-grid">
+          <div class="empty-state">
+            <h4>No donations yet</h4>
+            <p>Your donation history will appear here. Start making a difference today!</p>
+            <button class="btn" onclick="activateTab('make-donation')">Make your first donation</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Stripe Payment Modal -->
+  <div id="stripe-modal" class="stripe-modal">
+    <div class="stripe-modal-overlay" onclick="closeStripeModal()"></div>
+    <div class="stripe-modal-content">
+      <div class="stripe-modal-header">
+        <h2>Complete Your Payment</h2>
+        <button class="stripe-modal-close" onclick="closeStripeModal()">&times;</button>
+      </div>
+      <div class="stripe-modal-body">
+        <div class="stripe-payment-info">
+          <p style="margin-bottom: 1.5rem; color: #64748b;">Your payment page will open in a new window. After completing your payment, you can close that window and return here.</p>
+          <button onclick="openStripePayment()" class="btn btn-green" style="width: 100%; padding: 1rem; font-size: 1.1rem;">
+            Open Payment Page
+          </button>
+          <p style="margin-top: 1rem; font-size: 0.9rem; color: #64748b; text-align: center;">
+            Or <a href="https://buy.stripe.com/3cI9ATdSbemY4pFaHxdfG02" target="_blank" style="color: #02aeb2; text-decoration: underline;">click here to open in a new tab</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="https://js.stripe.com/v3/"></script>
+  <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+  <script src="donor.js"></script>
+</body>
+</html>
+

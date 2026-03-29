@@ -1,0 +1,64 @@
+========================================
+  ✅ CONFIGURATION STRIPE TERMINEE
+========================================
+
+Votre fichier .env est maintenant configure avec :
+
+✓ STRIPE_SECRET_KEY=sk_live_51Qxyc4... (clé LIVE)
+✓ STRIPE_WEBHOOK_SECRET=whsec_M9nPasNyfIra1CyzpD4RP1pllSGm0V06
+✓ URL ngrok : https://statued-thermoelectrically-lilith.ngrok-free.dev
+
+
+========================================
+  🔄 ACTION REQUISE : REDEMARRER LE SERVEUR
+========================================
+
+Pour que les nouvelles clés soient prises en compte :
+
+1. Dans le terminal du serveur, appuyez sur Ctrl+C
+2. Relancez : npm start
+3. Le serveur va charger les nouvelles clés depuis .env
+
+
+========================================
+  ✅ TESTER LE WEBHOOK
+========================================
+
+Une fois le serveur redemarre :
+
+1. Allez sur Stripe Dashboard > Webhooks
+2. Cliquez sur votre webhook
+3. Cliquez sur "Send test webhook"
+4. Selectionnez "payment_intent.succeeded"
+5. Vous devriez voir "200 Success" !
+
+
+========================================
+  📋 VOTRE CONFIGURATION WEBHOOK
+========================================
+
+URL : https://statued-thermoelectrically-lilith.ngrok-free.dev/api/payments/webhook
+Secret : whsec_M9nPasNyfIra1CyzpD4RP1pllSGm0V06
+Evenements : payment_intent.succeeded, invoice.payment_succeeded
+
+
+========================================
+  ⚠️  IMPORTANT
+========================================
+
+- Gardez ngrok actif (terminal 2)
+- Gardez le serveur actif (terminal 1)
+- Si vous redemarrez ngrok, l'URL change
+- Pour production fixe, utilisez Render.com
+
+
+========================================
+  🎉 TOUT EST PRET !
+========================================
+
+Votre plateforme est maintenant connectee a Stripe !
+Les paiements seront automatiquement enregistres dans transactions.json
+
+
+========================================
+

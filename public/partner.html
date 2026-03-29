@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>$forS – Partner Area</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="partner.css" />
+</head>
+<body>
+  <script>
+    // Vérification de session et redirection
+    const session = localStorage.getItem("fors_user");
+    if (!session) window.location.href = "login.html";
+    const sessionUser = JSON.parse(session);
+    if (sessionUser.role !== "Partner") {
+      if (sessionUser.role === "Alumni") window.location.href = "alumni.html";
+      else if (sessionUser.role === "Donor") window.location.href = "donor.html";
+      else if (sessionUser.role === "Student") window.location.href = "student.html";
+      else window.location.href = "login.html";
+    }
+  </script>
+
+  <header class="topbar">
+    <input id="search-input" class="search" type="text" placeholder="Search users, requests, contributions..." />
+    <div class="top-actions">
+      <div class="user-menu" id="user-menu">
+        <div class="avatar" id="user-avatar"></div>
+        <div class="user-info">
+          <div id="user-name"></div>
+          <div class="user-role"></div>
+        </div>
+        <div class="dropdown" id="user-dropdown">
+          <div class="dropdown-title">My Account</div>
+          <button class="dropdown-item">Profile Settings</button>
+          <button class="dropdown-item">Preferences</button>
+          <button class="dropdown-item danger" id="logout-btn">Log out</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <h1 class="page-title">Partner Area</h1>
+    <div class="page-header">
+      <button class="btn btn-contact" id="contact-us-btn">Contact Us</button>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="opportunities">Opportunities</button>
+      <button class="tab" data-tab="contact">Contact</button>
+      <button class="tab" data-tab="contact-history">Contact History</button>
+      <button class="tab" data-tab="current-projects">Current Projects</button>
+      <button class="tab" data-tab="news">News</button>
+    </div>
+
+    <!-- Opportunities Panel -->
+    <section id="opportunities" class="tab-panel active">
+      <div class="card">
+        <h2>Partnership Opportunities</h2>
+        <p class="opportunities-description">
+          Discover how your company can partner with $forS to support education and create a positive social impact.
+        </p>
+        
+        <div class="partnership-cards">
+          <div class="partnership-card partnership-card-blue">
+            <div class="partnership-icon icon-handshake icon-blue"></div>
+            <h3>Financial Partnership</h3>
+            <p>Directly support students by contributing to our aid fund. Your company can set specific criteria for scholarship allocation.</p>
+            <button class="btn-outline">Learn more</button>
+          </div>
+
+          <div class="partnership-card partnership-card-green">
+            <div class="partnership-icon icon-handshake icon-green"></div>
+            <h3>Internship Opportunities</h3>
+            <p>Offer internships and job opportunities to students in our network. An effective way to discover new talent.</p>
+            <button class="btn-outline">Learn more</button>
+          </div>
+
+          <div class="partnership-card partnership-card-purple">
+            <div class="partnership-icon icon-handshake icon-purple"></div>
+            <h3>Mentoring</h3>
+            <p>Engage your employees as mentors to guide students in their academic and professional journey.</p>
+            <button class="btn-outline">Learn more</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Panel -->
+    <section id="contact" class="tab-panel">
+      <div class="card">
+        <h2>Get in Touch</h2>
+        <p class="contact-description">
+          Interested in becoming a partner? Fill out the form below and our team will get back to you as soon as possible.
+        </p>
+        
+        <form id="contact-form" class="form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="company-name">Company Name</label>
+              <input type="text" id="company-name" required placeholder="Your company name" />
+            </div>
+            <div class="form-group">
+              <label for="contact-person">Contact Person</label>
+              <input type="text" id="contact-person" required placeholder="Your name" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contact-email">Email</label>
+              <input type="email" id="contact-email" required placeholder="contact@company.com" />
+            </div>
+            <div class="form-group">
+              <label for="contact-phone">Phone</label>
+              <input type="tel" id="contact-phone" placeholder="+33 1 23 45 67 89" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="partnership-type">Type of Partnership</label>
+            <select id="partnership-type" required>
+              <option value="">Select partnership type</option>
+              <option value="financial">Financial Partnership</option>
+              <option value="internship">Internship Opportunities</option>
+              <option value="mentoring">Mentoring</option>
+              <option value="multiple">Multiple Types</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" rows="6" required placeholder="Tell us about your partnership interest..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-green">
+            Send Message
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Contact History Panel -->
+    <section id="contact-history" class="tab-panel">
+      <div class="card">
+        <h2>Your Contact Messages</h2>
+        <p class="contact-description">
+          View all the messages you have sent to us.
+        </p>
+        
+        <div id="contact-history-list">
+          <div class="empty-state">
+            <h4>No messages yet</h4>
+            <p>You haven't sent any messages yet. Use the Contact tab to send your first message.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Current Projects Panel -->
+    <section id="news" class="tab-panel">
+      <div class="card">
+        <div class="card-header-row">
+          <h2>News & Announcements</h2>
+        </div>
+        <div id="news-list" class="empty-state">
+          <p>Loading news...</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="current-projects" class="tab-panel">
+      <div class="card">
+        <h2>Current Projects</h2>
+        <div id="projects-list">
+          <div class="empty-state">
+            <h4>No active projects yet</h4>
+            <p>Your partnership projects will appear here once they are established.</p>
+            <button class="btn" onclick="activateTab('opportunities')">Explore Opportunities</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="partner.js"></script>
+</body>
+</html>
+

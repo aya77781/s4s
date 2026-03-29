@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>$forS – Register</title>
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body>
+  <div class="concept-link">
+    <a href="index.html">← Back to Home</a>
+  </div>
+  <div class="login-container">
+    <div class="login-card">
+      <h1>$forS</h1>
+      <h2>Create Account</h2>
+      <form id="register-form">
+        <label>Full Name</label>
+        <input type="text" id="name" required placeholder="John Doe" />
+        <label>Email</label>
+        <input type="email" id="email" required placeholder="john@example.com" />
+        <label>Password</label>
+        <input type="password" id="password" required placeholder="At least 6 characters" />
+        <label>Account Type</label>
+        <select id="role" required>
+          <option value="">Select account type</option>
+          <option value="Student">Student</option>
+          <option value="Alumni">Alumni</option>
+          <option value="Donor">Donor</option>
+          <option value="Partner">Partner</option>
+          
+        </select>
+        <button type="submit" class="btn">Sign Up</button>
+        <p id="register-error" class="error"></p>
+        <p class="switch-link">Already have an account? <a href="login.html">Login</a></p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Pre-select role if provided in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const roleParam = urlParams.get("role");
+    if (roleParam) {
+      const roleSelect = document.getElementById("role");
+      if (roleSelect) {
+        roleSelect.value = roleParam;
+      }
+    }
+
+    const form = document.getElementById("register-form");
+    const errorMsg = document.getElementById("register-error");
+    const submitBtn = form.querySelector("button[type='submit']");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      errorMsg.textContent = "";
+      
+      // Désactiver le bouton pendant le traitement
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Creating account...";
+
+      try {
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const role = document.getElementById("role").value;
+
+        // Validation
+        if (!name) {
+          errorMsg.textContent = "Please enter your name.";
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Sign Up";
+          return;
+        }
+
+        if (!email) {
+          errorMsg.textContent = "Please enter your email.";
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Sign Up";
+          return;
+        }
+
+        if (password.length < 6) {
+          errorMsg.textContent = "Password must be at least 6 characters.";
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Sign Up";
+          return;
+        }
+
+        if (!role) {
+          errorMsg.textContent = "Please select an account type.";
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Sign Up";
+          return;
+        }
+
+        console.log("Envoi de la requête d'inscription...", { name, email, role });
+
+        // Envoi de la requête d'inscription
+        const res = await fetch("/api/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, password, role })
+        });
+
+        console.log("Réponse reçue:", res.status, res.statusText);
+
+        let data;
+        try {
+          data = await res.json();
+        } catch (jsonErr) {
+          console.error("Erreur parsing JSON:", jsonErr);
+          errorMsg.textContent = "Server error. Please try again.";
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Sign Up";
+          return;
+        }
+
+        if (!res.ok) {
+          errorMsg.textContent = data.error || "Registration failed.";
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Sign Up";
+          return;
+        }
+
+        console.log("Inscription réussie, connexion automatique...");
+        submitBtn.textContent = "Logging in...";
+
+        // Connecter automatiquement l'utilisateur après l'inscription
+        const loginRes = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+
+        console.log("Réponse login:", loginRes.status);
+
+        if (loginRes.ok) {
+          const user = await loginRes.json();
+          console.log("Utilisateur connecté:", user);
+          localStorage.setItem("fors_user", JSON.stringify(user));
+          
+          // Rediriger selon le rôle
+          if (user.role === "Admin") {
+            window.location.href = "admin.html";
+          } else if (user.role === "Alumni") {
+            window.location.href = "alumni.html";
+          } else if (user.role === "Donor") {
+            window.location.href = "donor.html";
+          } else if (user.role === "Partner") {
+            window.location.href = "partner.html";
+          } else if (user.role === "Student") {
+            window.location.href = "student.html";
+          } else {
+            window.location.href = "student.html";
+          }
+        } else {
+          alert("Account created successfully. Please log in.");
+          window.location.href = "login.html";
+        }
+      } catch (err) {
+        console.error("Erreur lors de l'inscription:", err);
+        errorMsg.textContent = "An error occurred. Please check your connection and try again.";
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Sign Up";
+      }
+    });
+  </script>
+</body>
+</html>
