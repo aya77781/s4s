@@ -756,7 +756,7 @@ async function startFreeDonation() {
   const freeDonationCard = document.getElementById('free-donation-card');
   if (freeDonationCard) freeDonationCard.style.display = 'none';
 
-  const success = await setupPaymentForm('one_time', Math.round(amount * 100), `Free donation of $${amount}`);
+  const success = await setupPaymentForm('one_time', amount, `Free donation of $${amount}`);
   if (!success) {
     if (freeDonationCard) freeDonationCard.style.display = 'block';
   }
