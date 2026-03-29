@@ -377,6 +377,23 @@ stripe-pricing-table iframe[src*="stripe"] {
   color: #475569;
 }
 
+.preset-amount-btn {
+  padding: 0.55rem 1.25rem;
+  border: 2px solid #02aeb2;
+  border-radius: 8px;
+  background: #fff;
+  color: #02aeb2;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.preset-amount-btn:hover,
+.preset-amount-btn.active {
+  background: linear-gradient(135deg, #02aeb2 0%, #059199 100%);
+  color: #fff;
+}
+
 .btn-outline:hover {
   border-color: #02aeb2;
   color: #02aeb2;

@@ -435,7 +435,10 @@ function setupPaymentFormSubmit() {
           
           // Cacher le formulaire de paiement
           document.getElementById("stripe-payment-card").style.display = "none";
-          document.querySelector(".contribute-card").style.display = "block";
+          const contributeCard = document.querySelector(".contribute-card");
+          if (contributeCard) contributeCard.style.display = "block";
+          const freeDonationCard = document.getElementById("free-donation-card");
+          if (freeDonationCard) freeDonationCard.style.display = "block";
           
           // Recharger les données
           await loadData();
@@ -461,7 +464,10 @@ function setupPaymentFormSubmit() {
   if (cancelBtn) {
     cancelBtn.addEventListener("click", () => {
       document.getElementById("stripe-payment-card").style.display = "none";
-      document.querySelector(".contribute-card").style.display = "block";
+      const contributeCard = document.querySelector(".contribute-card");
+      if (contributeCard) contributeCard.style.display = "block";
+      const freeDonationCard = document.getElementById("free-donation-card");
+      if (freeDonationCard) freeDonationCard.style.display = "block";
       if (paymentElement) {
         paymentElement.unmount();
         paymentElement = null;
@@ -726,20 +732,38 @@ function setupStripeMessageListener() {
   window.addEventListener('message', stripeMessageListener);
 }
 
-// Rendre les fonctions accessibles globalement
-window.openStripeModal = openStripeModal;
-window.closeStripeModal = closeStripeModal;
-window.openStripePayment = openStripePayment;
-
-// Fermer le modal avec la touche ESC
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    const modal = document.getElementById('stripe-modal');
-    if (modal && modal.classList.contains('active')) {
-      closeStripeModal();
-    }
+// === FREE DONATION INLINE ===
+function selectPresetAmount(amount) {
+  const input = document.getElementById('free-donation-amount');
+  if (input) {
+    input.value = amount;
+    // Highlight le bouton selectionne
+    document.querySelectorAll('.preset-amount-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
   }
-});
+}
+
+async function startFreeDonation() {
+  const input = document.getElementById('free-donation-amount');
+  const amount = parseFloat(input ? input.value : 0);
+
+  if (!amount || amount < 1) {
+    showNotif('Please enter a valid amount (minimum $1)', false);
+    return;
+  }
+
+  // Cacher la carte de saisie et afficher le formulaire Stripe inline
+  const freeDonationCard = document.getElementById('free-donation-card');
+  if (freeDonationCard) freeDonationCard.style.display = 'none';
+
+  const success = await setupPaymentForm('one_time', Math.round(amount * 100), `Free donation of $${amount}`);
+  if (!success) {
+    if (freeDonationCard) freeDonationCard.style.display = 'block';
+  }
+}
+
+window.selectPresetAmount = selectPresetAmount;
+window.startFreeDonation = startFreeDonation;
 
 // === TRAITEMENT DE L'ALLOCATION AUTOMATIQUE ===
 async function processContributionAllocation(contribution) {
