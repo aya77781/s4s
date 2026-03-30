@@ -110,25 +110,13 @@
           </stripe-pricing-table>
         </div>
 
-        <!-- Free Amount Donation Inline -->
-        <div class="card payment-card" id="free-donation-card" style="margin-top: 1.5rem;">
+        <!-- Free Amount Donation -->
+        <div class="card payment-card" style="margin-top: 1.5rem; text-align: center;">
           <h2>Or Make a Free Amount Donation</h2>
           <p style="color: #64748b; margin-bottom: 1.5rem; font-size: 0.9rem;">Choose any amount you'd like to contribute:</p>
-          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.25rem; justify-content: center;">
-            <button type="button" class="preset-amount-btn" onclick="selectPresetAmount(10)">$10</button>
-            <button type="button" class="preset-amount-btn" onclick="selectPresetAmount(25)">$25</button>
-            <button type="button" class="preset-amount-btn" onclick="selectPresetAmount(50)">$50</button>
-            <button type="button" class="preset-amount-btn" onclick="selectPresetAmount(100)">$100</button>
-          </div>
-          <div style="display: flex; align-items: center; gap: 0.75rem; max-width: 320px; margin: 0 auto 1.25rem auto;">
-            <span style="font-size: 1.25rem; font-weight: 600; color: #02aeb2;">$</span>
-            <input type="number" id="free-donation-amount" min="1" placeholder="Enter custom amount" style="flex:1; padding: 0.65rem 1rem; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 1rem; outline: none;" />
-          </div>
-          <div style="text-align: center;">
-            <button onclick="startFreeDonation()" class="btn btn-green" style="padding: 0.85rem 2.5rem; font-weight: 600;">
-              Donate Now
-            </button>
-          </div>
+          <button onclick="openStripePayment()" class="btn btn-green" style="display: inline-block; padding: 1rem 2.5rem; font-weight: 600;">
+            Make a Free Amount Donation
+          </button>
         </div>
       </div>
     </section>

@@ -732,38 +732,7 @@ function setupStripeMessageListener() {
   window.addEventListener('message', stripeMessageListener);
 }
 
-// === FREE DONATION INLINE ===
-function selectPresetAmount(amount) {
-  const input = document.getElementById('free-donation-amount');
-  if (input) {
-    input.value = amount;
-    // Highlight le bouton selectionne
-    document.querySelectorAll('.preset-amount-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
-  }
-}
-
-async function startFreeDonation() {
-  const input = document.getElementById('free-donation-amount');
-  const amount = parseFloat(input ? input.value : 0);
-
-  if (!amount || amount < 1) {
-    showNotif('Please enter a valid amount (minimum $1)', false);
-    return;
-  }
-
-  // Cacher la carte de saisie et afficher le formulaire Stripe inline
-  const freeDonationCard = document.getElementById('free-donation-card');
-  if (freeDonationCard) freeDonationCard.style.display = 'none';
-
-  const success = await setupPaymentForm('one_time', amount, `Free donation of $${amount}`);
-  if (!success) {
-    if (freeDonationCard) freeDonationCard.style.display = 'block';
-  }
-}
-
-window.selectPresetAmount = selectPresetAmount;
-window.startFreeDonation = startFreeDonation;
+window.openStripePayment = openStripePayment;
 
 // === TRAITEMENT DE L'ALLOCATION AUTOMATIQUE ===
 async function processContributionAllocation(contribution) {
