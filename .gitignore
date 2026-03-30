@@ -10,6 +10,7 @@ public/.env
 
 # Sensitive data files
 backend/data/
+backend/data/waitlist.json
 
 # Binaries
 *.exe

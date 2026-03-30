@@ -602,6 +602,65 @@ ${contactMessage.message}
   }
 });
 
+// === WAITLIST ENDPOINT ===
+const WAITLIST_PATH = path.join(DATA_DIR, "waitlist.json");
+
+app.get("/api/waitlist", (req, res) => {
+  try {
+    const waitlist = readJSON(WAITLIST_PATH);
+    res.json(waitlist);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to load waitlist" });
+  }
+});
+
+app.delete("/api/waitlist/:id", (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const waitlist = readJSON(WAITLIST_PATH);
+    const updated = waitlist.filter(e => e.id !== id);
+    writeJSON(WAITLIST_PATH, updated);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete entry" });
+  }
+});
+
+app.post("/api/waitlist", async (req, res) => {
+  try {
+    const { name, email, role, company, message } = req.body;
+
+    if (!name || !email || !role) {
+      return res.status(400).json({ error: "Name, email and role are required" });
+    }
+
+    const waitlist = readJSON(WAITLIST_PATH);
+
+    const alreadyExists = waitlist.some(e => e.email.toLowerCase() === email.toLowerCase());
+    if (alreadyExists) {
+      return res.status(409).json({ error: "This email is already on the waitlist" });
+    }
+
+    const entry = {
+      id: Date.now(),
+      name,
+      email,
+      role,
+      company: company || '',
+      message: message || '',
+      joinedAt: new Date().toISOString()
+    };
+
+    waitlist.push(entry);
+    writeJSON(WAITLIST_PATH, waitlist);
+
+    res.json({ success: true, message: "Successfully added to waitlist" });
+  } catch (err) {
+    console.error("❌ Waitlist error:", err);
+    res.status(500).json({ error: "Failed to join waitlist", details: err.message });
+  }
+});
+
 // === NEWS ENDPOINTS ===
 
 // GET /api/news - Récupérer toutes les news (optionnel: filtrer par catégorie)

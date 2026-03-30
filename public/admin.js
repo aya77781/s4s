@@ -68,6 +68,7 @@ window.showSection = function(sectionName) {
                      sectionName === "news" ? "news-section" :
                      sectionName === "content" ? "content-section" :
                      sectionName === "contacts" ? "contacts-section" :
+                     sectionName === "waitlist" ? "waitlist-section" :
                      sectionName === "all-data" ? "all-data-section" : "dashboard-section";
   
   const section = document.getElementById(sectionId);
@@ -85,6 +86,7 @@ window.showSection = function(sectionName) {
         (sectionName === "news" && itemText.includes("news")) ||
         (sectionName === "content" && itemText.includes("content")) ||
         (sectionName === "contacts" && itemText.includes("contacts")) ||
+        (sectionName === "waitlist" && itemText.includes("waitlist")) ||
         (sectionName === "all-data" && itemText.includes("all data"))) {
       item.classList.add("active");
     }
@@ -103,6 +105,8 @@ window.showSection = function(sectionName) {
     loadNews();
   } else if (sectionName === "contacts") {
     loadContacts();
+  } else if (sectionName === "waitlist") {
+    loadWaitlist();
   } else if (sectionName === "all-data") {
     loadAllUserData();
   }
@@ -1740,8 +1744,80 @@ document.addEventListener("DOMContentLoaded", () => {
   // Add event listeners for add user buttons
   document.getElementById("add-user-btn")?.addEventListener("click", openModal);
   document.getElementById("add-user-btn-2")?.addEventListener("click", openModal);
-  
+
   // Setup news form
   setupNewsForm();
 });
+
+// === WAITLIST ===
+async function loadWaitlist() {
+  try {
+    const res = await fetch(`${API_BASE}/waitlist`);
+    const waitlist = await res.json();
+
+    // Metrics
+    document.getElementById('waitlist-total').textContent = waitlist.length;
+    document.getElementById('waitlist-students').textContent = waitlist.filter(e => e.role === 'Student').length;
+    document.getElementById('waitlist-alumni').textContent = waitlist.filter(e => e.role === 'Alumni').length;
+    document.getElementById('waitlist-donors').textContent = waitlist.filter(e => e.role === 'Donor').length;
+    document.getElementById('waitlist-partners').textContent = waitlist.filter(e => e.role === 'Partner').length;
+
+    // Table
+    const tbody = document.getElementById('waitlist-table-body');
+    if (!waitlist.length) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#64748b;padding:2rem;">No entries yet</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = waitlist.map(e => `
+      <tr>
+        <td>${e.name}</td>
+        <td>${e.email}</td>
+        <td><span class="status-badge ${e.role.toLowerCase()}">${e.role}</span></td>
+        <td>${e.company || '—'}</td>
+        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${e.message || ''}">${e.message || '—'}</td>
+        <td>${new Date(e.joinedAt).toLocaleDateString()}</td>
+        <td><button class="icon-btn danger" onclick="deleteWaitlistEntry(${e.id})" title="Delete"><span class="icon-delete"></span></button></td>
+      </tr>
+    `).join('');
+
+    // Search
+    const searchInput = document.getElementById('waitlist-search');
+    if (searchInput) {
+      searchInput.oninput = () => {
+        const q = searchInput.value.toLowerCase();
+        tbody.querySelectorAll('tr').forEach(row => {
+          row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+        });
+      };
+    }
+
+    // Export CSV
+    const exportBtn = document.getElementById('export-waitlist-btn');
+    if (exportBtn) {
+      exportBtn.onclick = () => {
+        const csv = ['Name,Email,Role,Company,Message,Date',
+          ...waitlist.map(e => `"${e.name}","${e.email}","${e.role}","${e.company || ''}","${(e.message || '').replace(/"/g, '""')}","${new Date(e.joinedAt).toLocaleDateString()}"`)]
+          .join('\n');
+        const a = document.createElement('a');
+        a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+        a.download = 'waitlist.csv';
+        a.click();
+      };
+    }
+
+  } catch (err) {
+    console.error('Error loading waitlist:', err);
+  }
+}
+
+window.deleteWaitlistEntry = async function(id) {
+  if (!confirm('Remove this person from the waitlist?')) return;
+  try {
+    await fetch(`${API_BASE}/waitlist/${id}`, { method: 'DELETE' });
+    loadWaitlist();
+  } catch (err) {
+    alert('Failed to delete entry');
+  }
+};
 

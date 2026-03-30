@@ -378,6 +378,82 @@ body {
   text-align: center;
 }
 
+/* === WAITLIST SECTION === */
+.waitlist-section {
+  background: linear-gradient(135deg, #f0fdfe 0%, #fefcf9 100%);
+}
+
+.waitlist-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #02aeb2, #059199);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.35rem 1rem;
+  border-radius: 999px;
+  margin: 0 auto 1.25rem auto;
+  display: block;
+  width: fit-content;
+}
+
+.waitlist-roles {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.waitlist-role-btn {
+  padding: 0.65rem 1.5rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+  color: #475569;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.waitlist-role-btn:hover {
+  border-color: #02aeb2;
+  color: #02aeb2;
+  transform: translateY(-2px);
+}
+
+.waitlist-role-btn.active {
+  border-color: #02aeb2;
+  background: linear-gradient(135deg, #02aeb2, #059199);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(2, 174, 178, 0.3);
+}
+
+.waitlist-form-wrapper {
+  max-width: 560px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+.waitlist-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.waitlist-submit-btn {
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
 /* === CONTACT SECTION === */
 .contact-section {
   background: #fff;

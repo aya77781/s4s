@@ -703,6 +703,61 @@
       </div>
     </section>
 
+    <!-- Waitlist Section -->
+    <section id="waitlist-section" class="admin-section">
+      <div class="section-header">
+        <h1 class="page-title">Waitlist</h1>
+        <div class="header-actions">
+          <input type="text" class="search-input" id="waitlist-search" placeholder="Search waitlist..." />
+          <button class="btn-secondary" id="export-waitlist-btn">
+            <span class="icon-export"></span>
+            Export CSV
+          </button>
+        </div>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-header"><span class="metric-title">Total</span></div>
+          <div class="metric-value" id="waitlist-total">0</div>
+          <div class="metric-desc">People on the waitlist</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-header"><span class="metric-title">Students</span></div>
+          <div class="metric-value" id="waitlist-students">0</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-header"><span class="metric-title">Alumni</span></div>
+          <div class="metric-value" id="waitlist-alumni">0</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-header"><span class="metric-title">Donors</span></div>
+          <div class="metric-value" id="waitlist-donors">0</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-header"><span class="metric-title">Partners</span></div>
+          <div class="metric-value" id="waitlist-partners">0</div>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Company</th>
+              <th>Message</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="waitlist-table-body"></tbody>
+        </table>
+      </div>
+    </section>
+
     <!-- All User Data Section -->
     <section id="all-data-section" class="admin-section">
       <div class="section-header">
@@ -749,6 +804,10 @@
     <div class="sidebar-item" onclick="window.showSection('contacts')">
       <span class="icon-contact"></span>
       <span>Contacts</span>
+    </div>
+    <div class="sidebar-item" onclick="window.showSection('waitlist')">
+      <span class="icon-contact"></span>
+      <span>Waitlist</span>
     </div>
     <div class="sidebar-item" onclick="window.showSection('all-data')">
       <span class="icon-dashboard"></span>

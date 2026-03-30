@@ -92,6 +92,67 @@ if (contactForm) {
   });
 }
 
+// === WAITLIST FORM ===
+const waitlistRoleBtns = document.querySelectorAll('.waitlist-role-btn');
+const waitlistRoleInput = document.getElementById('waitlist-role');
+const companyGroup = document.getElementById('company-group');
+
+waitlistRoleBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    waitlistRoleBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const role = btn.dataset.role;
+    if (waitlistRoleInput) waitlistRoleInput.value = role;
+    if (companyGroup) companyGroup.style.display = role === 'Partner' ? 'block' : 'none';
+  });
+});
+
+const waitlistForm = document.getElementById('waitlist-form');
+const waitlistStatus = document.getElementById('waitlist-status');
+
+if (waitlistForm) {
+  waitlistForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const data = {
+      name: document.getElementById('waitlist-name').value,
+      email: document.getElementById('waitlist-email').value,
+      role: document.getElementById('waitlist-role').value,
+      company: document.getElementById('waitlist-company')?.value || '',
+      message: document.getElementById('waitlist-message').value
+    };
+
+    const submitBtn = waitlistForm.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Joining...';
+
+    try {
+      const API_BASE = window.APP_CONFIG?.API_BASE || window.location.origin + '/api';
+      const res = await fetch(`${API_BASE}/waitlist`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (!res.ok) throw new Error('Failed to join waitlist');
+
+      waitlistStatus.textContent = "You're on the list! We'll reach out when $forS launches. 🎉";
+      waitlistStatus.className = 'contact-status success';
+      waitlistForm.reset();
+      waitlistRoleBtns.forEach((b, i) => b.classList.toggle('active', i === 0));
+      if (waitlistRoleInput) waitlistRoleInput.value = 'Student';
+      if (companyGroup) companyGroup.style.display = 'none';
+    } catch (err) {
+      waitlistStatus.textContent = 'Something went wrong. Please try again.';
+      waitlistStatus.className = 'contact-status error';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Join the Waitlist';
+      setTimeout(() => { waitlistStatus.className = 'contact-status'; }, 6000);
+    }
+  });
+}
+
 // === HANDLE ROLE PARAMETER IN REGISTER LINK ===
 const urlParams = new URLSearchParams(window.location.search);
 const role = urlParams.get("role");
