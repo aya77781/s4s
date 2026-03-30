@@ -47,20 +47,22 @@ body {
   background: linear-gradient(90deg, #02aeb2 0%, #059199 100%);
 }
 
-/* Titre */
-.login-container h1 {
-  font-size: 2.25rem;
-  color: #02aeb2;
-  margin-bottom: 0.3rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+/* Logo */
+.login-logo {
+  height: 70px;
+  width: auto;
+  display: block;
+  margin: 0 auto 1.25rem auto;
+  mix-blend-mode: multiply;
 }
 
 .login-container h2 {
-  font-size: 1.1rem;
-  font-weight: 500;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
   color: #64748b;
   margin-bottom: 2rem;
+  letter-spacing: 0.02em;
 }
 
 /* Labels et inputs */
