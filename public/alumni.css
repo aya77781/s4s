@@ -24,6 +24,19 @@ body {
   z-index: 100;
 }
 
+.topbar-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.topbar-logo-img {
+  height: 44px;
+  width: auto;
+  mix-blend-mode: multiply;
+}
+
 .search {
   flex: 1;
   max-width: 600px;
@@ -166,11 +179,12 @@ body {
 }
 
 .page-title {
-  font-size: 2rem;
-  font-weight: 700;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  font-weight: 600;
   margin: 0 0 0.25rem 0;
   color: #0f172a;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.01em;
 }
 
 .welcome-subtitle {
