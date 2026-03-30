@@ -385,7 +385,7 @@ async function setupPaymentForm(paymentType, amount, description) {
     
     // Afficher le formulaire de paiement
     paymentCard.style.display = "block";
-    contributionCard.style.display = "none";
+    if (contributionCard) contributionCard.style.display = "none";
     
     return true;
   } catch (err) {
