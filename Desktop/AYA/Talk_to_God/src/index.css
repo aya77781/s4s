@@ -1,0 +1,279 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ════════════════════════════════════════════════════════════════════
+   Design marocain — palette crème / or / accent (vert · rouge · bleu).
+   Variables pilotées par : html.dark (mode) + html[data-palette] (accent).
+   ════════════════════════════════════════════════════════════════════ */
+:root {
+  --bg: #f3ead2;
+  --bg2: #eee2c4;
+  --card: #fbf6e8;
+  --ink: #2c3a33;
+  --muted: #8a8470;
+  --gold: #b8923a;
+  --gold-soft: rgba(184, 146, 58, 0.42);
+  --pat: rgba(184, 146, 58, 0.16);
+  --pat2: rgba(31, 111, 81, 0.1);
+  --shadow: 0 24px 60px rgba(70, 55, 20, 0.13);
+  --accent: #1f6f51;
+  --verse: #266a4d;
+  color-scheme: light;
+}
+html.dark {
+  --bg: #0c2a21;
+  --bg2: #0a241d;
+  --card: #123628;
+  --ink: #ecdcb3;
+  --muted: rgba(236, 220, 179, 0.55);
+  --gold: #cdae6a;
+  --gold-soft: rgba(205, 174, 106, 0.4);
+  --pat: rgba(205, 174, 106, 0.12);
+  --pat2: rgba(205, 174, 106, 0.05);
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  --accent: #7cc4a0;
+  --verse: #8fd3ad;
+  color-scheme: dark;
+}
+
+/* Accent par palette (mode clair) */
+html[data-palette='green'] { --accent: #1f6f51; --verse: #266a4d; }
+html[data-palette='red'] { --accent: #a8492f; --verse: #a8492f; }
+html[data-palette='blue'] { --accent: #345f9e; --verse: #345f9e; }
+/* Accent par palette (mode sombre) — spécificité supérieure */
+html.dark[data-palette='green'] { --accent: #7cc4a0; --verse: #8fd3ad; }
+html.dark[data-palette='red'] { --accent: #dd8e72; --verse: #e7a288; }
+html.dark[data-palette='blue'] { --accent: #90b3e6; --verse: #a3c1ec; }
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background-color: var(--bg);
+  background-image: var(--zellige);
+  background-size: 132px 132px;
+  color: var(--ink);
+  font-family: 'Reem Kufi', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ── */
+.hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px clamp(20px, 4vw, 56px);
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand h1 {
+  font-family: 'Reem Kufi', sans-serif;
+  font-weight: 600;
+  font-size: clamp(20px, 2.4vw, 27px);
+  color: var(--accent);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  margin: 0;
+}
+.brand .glyph { width: 30px; height: 30px; opacity: 0.85; color: var(--gold); }
+.controls { display: flex; align-items: center; gap: 14px; }
+.swatches {
+  display: flex; gap: 9px; align-items: center;
+  padding: 7px 11px; border-radius: 999px;
+  background: var(--card); border: 1px solid var(--gold-soft);
+}
+.swatch {
+  width: 22px; height: 22px; border-radius: 999px; cursor: pointer;
+  border: 2px solid transparent; transition: transform 0.15s ease; padding: 0;
+}
+.swatch:hover { transform: scale(1.12); }
+.swatch.on { box-shadow: 0 0 0 2px var(--card), 0 0 0 3.5px currentColor; }
+.btn {
+  font-family: 'Reem Kufi', sans-serif; font-size: 15px; font-weight: 500;
+  color: var(--accent); background: transparent;
+  border: 1px solid var(--gold-soft); border-radius: 999px;
+  padding: 9px 20px; cursor: pointer; transition: all 0.18s ease;
+}
+.btn:hover { background: var(--card); border-color: var(--gold); }
+.icon-btn {
+  width: 44px; height: 44px; border-radius: 999px; cursor: pointer;
+  background: var(--card); border: 1px solid var(--gold-soft);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent); transition: all 0.18s ease;
+}
+.icon-btn:hover { border-color: var(--gold); transform: translateY(-1px); }
+
+/* ── Tabs ── */
+.tabs { display: flex; justify-content: center; gap: 10px; padding: 6px 20px 8px; flex-wrap: wrap; }
+.tab {
+  font-family: 'Reem Kufi', sans-serif; font-size: 16px; font-weight: 500;
+  color: var(--muted); background: transparent; border: none; cursor: pointer;
+  padding: 11px 30px; border-radius: 999px; transition: all 0.2s ease;
+}
+.tab:hover { color: var(--accent); }
+.tab.on {
+  color: #fbf6e8; background: var(--accent);
+  box-shadow: 0 8px 22px -6px var(--accent); font-weight: 600;
+}
+html.dark .tab.on { color: #0c2a21; }
+
+/* ── Main ── */
+.main {
+  flex: 1; display: flex; align-items: flex-start; justify-content: center;
+  padding: clamp(20px, 4vh, 46px) 20px 60px;
+}
+.stage { width: 100%; max-width: 660px; }
+
+/* ── Verse card ── */
+.card {
+  position: relative; background: var(--card);
+  border: 1px solid var(--gold-soft); border-radius: 30px;
+  padding: 78px clamp(26px, 6vw, 64px) 52px;
+  box-shadow: var(--shadow); overflow: hidden;
+  animation: rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes rise { from { transform: translateY(14px); } to { transform: none; } }
+.card::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: var(--zellige); background-size: 90px 90px;
+  opacity: 0.5; pointer-events: none;
+}
+.arch { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); width: 150px; color: var(--gold); }
+.corner { position: absolute; width: 40px; height: 40px; color: var(--gold); opacity: 0.9; }
+.corner.tl { top: 20px; right: 22px; }
+.corner.tr { top: 20px; left: 22px; }
+.corner.bl { bottom: 20px; right: 22px; }
+.corner.br { bottom: 20px; left: 22px; }
+
+.verse {
+  position: relative; font-family: 'Amiri', serif; font-weight: 400;
+  font-size: clamp(30px, 5.2vw, 46px); line-height: 2;
+  color: var(--verse); text-align: center; direction: rtl;
+  padding: 26px 6px 30px; min-height: 160px;
+  display: flex; align-items: center; justify-content: center;
+  transition: color 0.4s ease;
+  animation: fade 0.5s ease both;
+}
+@keyframes fade { from { opacity: 0; transform: scale(0.985); } to { opacity: 1; transform: none; } }
+
+.divider {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  gap: 16px; margin: 4px auto 26px; max-width: 360px;
+}
+.divider .ln { flex: 1; height: 1px; background: var(--gold-soft); }
+.divider .st { width: 22px; height: 22px; color: var(--gold); }
+
+.ayah-no { position: relative; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.medallion { position: relative; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; }
+.medallion svg { position: absolute; inset: 0; color: var(--gold); }
+.medallion .n { font-family: 'Amiri', serif; font-size: 26px; font-weight: 700; color: var(--accent); }
+.surah { font-family: 'Reem Kufi', sans-serif; font-size: 18px; color: var(--ink); font-weight: 500; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; }
+.surah .sub { color: var(--muted); font-size: 14px; font-weight: 400; }
+
+/* Badge مكية / مدنية */
+.badge { font-family: 'Reem Kufi', sans-serif; font-size: 13px; font-weight: 600; border-radius: 999px; padding: 2px 12px; }
+.badge.meccan { background: rgba(184, 146, 58, 0.18); color: #9a7b2e; }
+.badge.medinan { background: rgba(31, 111, 81, 0.16); color: #1f6f51; }
+html.dark .badge.meccan { color: #cdae6a; }
+html.dark .badge.medinan { color: #8fd3ad; }
+
+/* ── Sections de profondeur (tafsir / contexte / intro) ── */
+.depth-row { position: relative; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 30px; }
+.depth-btn {
+  font-family: 'Reem Kufi', sans-serif; font-size: 14px; font-weight: 500;
+  color: var(--accent); background: transparent;
+  border: 1px solid var(--gold-soft); border-radius: 999px;
+  padding: 8px 18px; cursor: pointer; transition: all 0.18s ease;
+}
+.depth-btn:hover { background: rgba(184, 146, 58, 0.08); border-color: var(--gold); }
+.depth-btn.on { background: var(--accent); color: #fbf6e8; border-color: var(--accent); }
+html.dark .depth-btn.on { color: #0c2a21; }
+
+.panel { position: relative; display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.45s ease, opacity 0.45s ease, margin 0.45s ease; }
+.panel.open { grid-template-rows: 1fr; opacity: 1; margin-top: 14px; }
+.panel-inner { overflow: hidden; }
+.panel-box { border: 1px solid var(--gold-soft); background: rgba(184, 146, 58, 0.06); border-radius: 18px; padding: 20px 22px; text-align: right; }
+html.dark .panel-box { background: rgba(255, 255, 255, 0.04); }
+.panel-box h3 { font-family: 'Reem Kufi', sans-serif; font-size: 15px; font-weight: 600; color: var(--gold); margin: 0 0 10px; display: flex; align-items: center; gap: 10px; }
+.panel-box h3 .ln { flex: 1; height: 1px; background: var(--gold-soft); }
+.panel-text { font-family: 'Amiri', serif; font-size: 18px; line-height: 2; color: var(--ink); white-space: pre-line; margin: 0; }
+.read-more { font-family: 'Reem Kufi', sans-serif; font-size: 14px; font-weight: 600; color: var(--gold); background: none; border: none; cursor: pointer; margin-top: 10px; padding: 0; }
+.panel-state { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 16px; color: var(--muted); font-family: 'Reem Kufi', sans-serif; }
+.panel-empty { text-align: center; color: var(--muted); font-family: 'Reem Kufi', sans-serif; padding: 8px; }
+
+/* ── Action bar ── */
+.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 30px; }
+.act {
+  width: 50px; height: 50px; border-radius: 999px; cursor: pointer;
+  background: var(--card); border: 1px solid var(--gold-soft);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent); transition: all 0.18s ease;
+}
+.act:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 18px -8px var(--gold); }
+.act:disabled { opacity: 0.55; cursor: not-allowed; transform: none; box-shadow: none; }
+.act.primary {
+  background: var(--accent); color: #fbf6e8; border-color: var(--accent);
+  width: auto; padding: 0 26px; gap: 10px; font-family: 'Reem Kufi', sans-serif;
+  font-size: 16px; font-weight: 600;
+}
+html.dark .act.primary { color: #0c2a21; }
+.act.fav.on { color: #c0533a; }
+html.dark .act.fav.on { color: #e08a6e; }
+
+/* ── Toast ── */
+.toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--accent); color: #fbf6e8; padding: 12px 24px; border-radius: 999px;
+  font-family: 'Reem Kufi', sans-serif; font-size: 15px; opacity: 0; pointer-events: none;
+  transition: all 0.3s ease; box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.4); z-index: 50;
+}
+html.dark .toast { color: #0c2a21; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── Spinner / states ── */
+.spin { width: 34px; height: 34px; border: 3px solid var(--gold-soft); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.9s linear infinite; }
+.spin.sm { width: 20px; height: 20px; border-width: 2.5px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.center-state { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 90px 20px; text-align: center; font-family: 'Reem Kufi', sans-serif; color: var(--accent); }
+.center-state .msg { color: var(--ink); font-size: 18px; }
+
+/* ── Lists (favoris / historique) ── */
+.list { display: flex; flex-direction: column; gap: 14px; }
+.list-item {
+  position: relative; background: var(--card); border: 1px solid var(--gold-soft);
+  border-radius: 20px; padding: 22px 26px; cursor: pointer; transition: all 0.18s ease;
+}
+.list-item:hover { border-color: var(--gold); transform: translateX(-3px); }
+.list-item .li-verse { font-family: 'Amiri', serif; font-size: clamp(20px, 3vw, 26px); line-height: 1.9; color: var(--verse); }
+.li-meta { display: flex; align-items: center; gap: 10px; margin-top: 12px; color: var(--muted); font-family: 'Reem Kufi', sans-serif; font-size: 14px; flex-wrap: wrap; }
+.li-meta .dot { width: 5px; height: 5px; border-radius: 99px; background: var(--gold); }
+.li-del { position: absolute; top: 18px; left: 18px; color: var(--muted); background: none; border: none; cursor: pointer; opacity: 0.55; transition: opacity 0.15s; }
+.li-del:hover { opacity: 1; color: #c0533a; }
+.empty { text-align: center; padding: 80px 20px; color: var(--muted); font-family: 'Reem Kufi', sans-serif; }
+.empty .big { font-size: 19px; color: var(--ink); margin-bottom: 8px; }
+.section-head { text-align: center; font-family: 'Reem Kufi', sans-serif; color: var(--accent); font-size: 22px; font-weight: 600; margin-bottom: 22px; }
+
+footer.ftr { text-align: center; padding: 18px; color: var(--muted); font-family: 'Reem Kufi', sans-serif; font-size: 13px; }
+
+/* ── Auth modal ── */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 60; }
+.modal { width: 100%; max-width: 380px; background: var(--card); border: 1px solid var(--gold-soft); border-radius: 24px; padding: 28px; box-shadow: var(--shadow); }
+.modal h2 { font-family: 'Reem Kufi', sans-serif; text-align: center; color: var(--accent); font-size: 22px; margin: 0 0 6px; }
+.modal .sub { font-family: 'Reem Kufi', sans-serif; text-align: center; color: var(--muted); font-size: 14px; margin: 0 0 20px; }
+.field { width: 100%; font-family: 'Reem Kufi', sans-serif; font-size: 15px; background: var(--bg); border: 1px solid var(--gold-soft); border-radius: 12px; padding: 12px 14px; color: var(--ink); text-align: right; margin-bottom: 10px; }
+.field:focus { outline: none; border-color: var(--gold); }
+.modal .submit { width: 100%; font-family: 'Reem Kufi', sans-serif; font-weight: 600; font-size: 16px; background: var(--accent); color: #fbf6e8; border: none; border-radius: 999px; padding: 12px; cursor: pointer; margin-top: 6px; transition: opacity 0.18s; }
+.modal .submit:disabled { opacity: 0.6; cursor: not-allowed; }
+html.dark .modal .submit { color: #0c2a21; }
+.modal .switch { display: block; margin: 16px auto 0; background: none; border: none; color: var(--accent); font-family: 'Reem Kufi', sans-serif; font-size: 14px; cursor: pointer; }
+.form-err { font-family: 'Reem Kufi', sans-serif; text-align: center; color: #c0533a; font-size: 14px; margin-bottom: 8px; }
